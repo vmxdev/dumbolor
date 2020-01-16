@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <wchar.h>
@@ -86,7 +87,7 @@ mk_response(struct irc_ctx *ctx, char *nick, char *message)
 		return 0;
 	}
 
-	idx = rand() % ctx->dict_size;
+	idx = (size_t)((double)rand() / ((double)RAND_MAX + 1) * ctx->dict_size);
 
 	strcpy(message, ctx->dict[idx].txt);
 	strcpy(ctx->last_msg, message);
