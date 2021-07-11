@@ -72,6 +72,11 @@ mk_response(struct irc_ctx *ctx, char *nick, char *message)
 
 	/* convert message to array of wchat_t */
 	msgsize = mbstowcs(wmsg, message, MESSAGE_LEN);
+	if (msgsize == (size_t)-1) {
+		strcpy(message, "Мразь, падаль");
+		return 1;
+	}
+
 	for (i=0; i<msgsize; i++) {
 		/* and make it lowercase */
 		wmsg_l[i] = towlower(wmsg[i]);
